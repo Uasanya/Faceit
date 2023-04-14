@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Faceit Stats</string>
+    <string name="button">Показать статистику</string>
+    <string name="example_date">Apr 24 2023 20:07</string>
+    <string name="win">Win</string>
+    <string name="score">16/11</string>
+    <string name="map">de_anubis</string>
+    <string name="enter_nick">Введите никнейм</string>
+
+
+</resources>
