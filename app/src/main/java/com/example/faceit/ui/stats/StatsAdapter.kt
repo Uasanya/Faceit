@@ -41,14 +41,9 @@ class StatsAdapter : RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
         private val tvViewHolder: View = itemView.findViewById(R.id.view_holder)
 
 
-        @SuppressLint("ResourceAsColor")
+
         fun bind(match: MatchEntity) {
             val date: Long = match.date
-            val status = if (match.winner) {
-                "Won"
-            } else {
-                "Lost"
-            }
             val score: String = match.score
             val map: String = match.map
             val kills: Int = match.kills
@@ -60,15 +55,16 @@ class StatsAdapter : RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
 
 
             tvDateHolder.text = time
-            tvStatusHolder.text = status
             tvScoreHolder.text = score
             tvMapHolder.text = map
             tvStatHolder.text = statistic
             if (match.winner) {
+                tvStatusHolder.text = itemView.context.getString(R.string.won)
                 tvStatusHolder.setBackgroundResource(R.color.win)
                 tvScoreHolder.setBackgroundResource(R.color.win)
                 tvViewHolder.setBackgroundResource(R.drawable.border_win)
             } else {
+                tvStatusHolder.text = itemView.context.getString(R.string.lost)
                 tvStatusHolder.setBackgroundResource(R.color.lose)
                 tvScoreHolder.setBackgroundResource(R.color.lose)
                 tvViewHolder.setBackgroundResource(R.drawable.border_lose)

@@ -6,6 +6,7 @@
     <string name="score">16/11</string>
     <string name="map">de_anubis</string>
     <string name="enter_nick">Введите никнейм</string>
-
-
+    <string name="no_data">Нет сети</string>
+    <string name="won">Won</string>
+    <string name="lost">Lost</string>
 </resources>

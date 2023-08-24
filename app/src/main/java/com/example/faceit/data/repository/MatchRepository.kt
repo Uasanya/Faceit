@@ -12,10 +12,10 @@ import javax.inject.Inject
 class MatchRepository @Inject constructor(private val matchRemoteDataSource: MatchRemoteDataSource, private val playerRepository: PlayerRepository) {
 
 
-    private suspend fun loadMatchDetails(matchId: String): MatchDetails =
+    suspend fun loadMatchDetails(matchId: String): MatchDetails =
         matchRemoteDataSource.getMatchDetails(matchId)
 
-    private suspend fun loadMatchStats(matchId: String): MatchStats =
+    suspend fun loadMatchStats(matchId: String): MatchStats =
         matchRemoteDataSource.getMatchStats(matchId)
 
     suspend fun getMatchEntity(nickname:String): List<MatchEntity>{
@@ -26,7 +26,6 @@ class MatchRepository @Inject constructor(private val matchRemoteDataSource: Mat
             playerRepository.loadPlayerHistory(player.playerId) // получааем по айди игрока историю из 20 матчей
         val playerMatches = playerHistory.items//получил список из 20 айтемов
         playerMatches.forEach { item ->
-            item.matchId
             val matchId = item.matchId
             val matchDetails = loadMatchDetails(matchId)
             val matchStats = loadMatchStats(matchId)
@@ -34,7 +33,6 @@ class MatchRepository @Inject constructor(private val matchRemoteDataSource: Mat
             val rounds = matchStats.rounds
             val roundStats = rounds.first().roundStats
             val map = roundStats.map
-            val score = roundStats.score
             val teams = rounds.first().teams
             var winner = false
             var playerStats: PlayerStats? = null
@@ -47,6 +45,7 @@ class MatchRepository @Inject constructor(private val matchRemoteDataSource: Mat
                     }
                 }
             }
+            val score = scoreConverter(roundStats.score, winner)
             val matchEntity = MatchEntity(
                 date,
                 map,
@@ -61,4 +60,27 @@ class MatchRepository @Inject constructor(private val matchRemoteDataSource: Mat
         }
         return listMatchEntity
     }
+
+    private fun scoreConverter(inputScore: String, winner: Boolean): String{
+        var score = inputScore
+        val delitel = " / "
+        val arr = score.split(delitel).toTypedArray()
+        val arrInt :MutableList<Int> = mutableListOf()
+        arr.forEach { str ->
+            val int = str.toInt()
+            arrInt.add(int)
+        }
+        if (winner){
+            if(arrInt[0] < arrInt[1]){
+                score  = arr[1] + "/" + arr[0]
+            }
+        }
+        if(!winner){
+            if(arrInt[0] > arrInt[1]){
+                score  = arr[1] + "/" + arr[0]
+            }
+        }
+        return score
+    }
 }
+
