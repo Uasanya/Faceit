@@ -18,20 +18,24 @@ data class RoundStats(
     @SerializedName("Map")
     val map: String,
     @SerializedName("Score")
-    val score: String
-
+    val score: String,
+    @SerializedName("Winner")
+    val winner: String
 )
 
 data class Team(
+    @SerializedName("team_id")
+    val teamId: String,
     @SerializedName("players")
     val players: List<TeamPlayer>
+
 )
 
 data class TeamPlayer(
     @SerializedName("player_id")
     val playerId: String,
     @SerializedName("player_stats")
-    val playerStats: List<PlayerStats>
+    val playerStats: PlayerStats,
 )
 data class PlayerStats(
     @SerializedName("Kills")

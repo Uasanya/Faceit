@@ -13,7 +13,7 @@ android:shape="rectangle"
 
 <stroke
     android:color="@color/win"
-    android:width="2dp">
+    android:width="@dimen/border_wight">
 </stroke>
 
 

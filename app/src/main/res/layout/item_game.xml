@@ -18,37 +18,39 @@
         android:textSize="@dimen/tv_item_size"
         android:gravity="center"
         android:textColor="@color/stat_color"
+        android:layout_marginStart="@dimen/margin_start"
         />
 
     <TextView
         android:id="@+id/tv_status"
-        android:layout_width="@dimen/win_size"
+        android:layout_width="@dimen/status_size"
         android:layout_height="match_parent"
-        android:text="@string/win"
+        tools:text="@string/win"
         android:textSize="@dimen/tv_item_size"
-        android:background="@color/win"
         android:gravity="center"
         android:layout_marginStart="@dimen/in_item_margin"
         android:textColor="@color/stat_color"
+        tools:background="@color/win"
         />
+
     <TextView
         android:id="@+id/tv_score"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/score_size"
         android:layout_height="match_parent"
-        android:text="@string/score"
+        tools:text="@string/score"
         android:textSize="@dimen/tv_item_size"
         android:gravity="center"
         android:layout_marginStart="@dimen/win_lose_gap"
         android:textColor="@color/stat_color"
-        android:background="@color/win"
-
-
+        tools:background="@color/win"
         />
+
+
     <TextView
         android:id="@+id/tv_map"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/map"
+        tools:text="@string/map"
         android:textSize="@dimen/tv_item_size"
         android:gravity="center"
         android:layout_marginStart="@dimen/in_item_margin"
@@ -58,7 +60,7 @@
     <TextView
         android:textSize="@dimen/tv_item_size"
         android:id="@+id/tv_stat"
-        android:layout_width="@dimen/stat_width"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         tools:text="28–4-20(KD:1,4)"
         android:gravity="center"

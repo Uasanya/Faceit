@@ -13,7 +13,7 @@
 
     <stroke
         android:color="@color/lose"
-        android:width="2dp">
+        android:width="@dimen/border_wight">
     </stroke>
 
 
