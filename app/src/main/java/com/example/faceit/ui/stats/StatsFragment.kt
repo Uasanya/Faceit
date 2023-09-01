@@ -5,18 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import com.example.faceit.R
+import com.example.faceit.databinding.FragmentStatsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class StatsFragment : Fragment() {
 
-    private var tvNoData: TextView? = null
-    private var rv: RecyclerView? = null
+    private var _binding: FragmentStatsBinding? = null
+    private val binding get() = _binding!!
+
     private var text: String? = null
     private val statsAdapter: StatsAdapter = StatsAdapter()
     private val viewModel: StatsViewModel by viewModels()
@@ -42,26 +41,27 @@ class StatsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_stats, container, false)
+    ): View {
+        _binding = FragmentStatsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val nickname: TextView = view.findViewById(R.id.tv_nickname)
-        nickname.text = text
-        rv = view.findViewById(R.id.rv)
-        rv?.adapter = statsAdapter
-        tvNoData = view.findViewById(R.id.tv_no_data)
-        val progressBar: ProgressBar = view.findViewById(R.id.progress_bar)
+        binding.tvNickname.text = text
+        binding.rv.adapter = statsAdapter
         text?.let { viewModel.getStats(it) }
         viewModel.statsLiveData.observe(viewLifecycleOwner) { matches ->
             statsAdapter.setStats(matches)
-            progressBar.visibility = ProgressBar.GONE
+            binding.progressBar.visibility = ProgressBar.GONE
         }
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            tvNoData?.visibility = View.VISIBLE
-            rv?.visibility = View.GONE
+            binding.tvNoData.visibility = View.VISIBLE
+            binding.rv.visibility = View.GONE
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

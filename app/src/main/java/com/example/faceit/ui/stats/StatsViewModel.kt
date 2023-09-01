@@ -29,9 +29,7 @@ class StatsViewModel @Inject constructor(private val matchRepository: MatchRepos
                 _errorLiveData.value = e
             }
         }
-
     }
-
 }
 
 

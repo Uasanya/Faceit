@@ -4,32 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import com.example.faceit.R
-import com.example.faceit.ui.stats.StatsFragment
+import com.example.faceit.databinding.FragmentStartBinding
 import com.example.faceit.ui.base.BaseFragment
+import com.example.faceit.ui.stats.StatsFragment
 
 
 class StartFragment : BaseFragment() {
 
+    private var _binding: FragmentStartBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        return inflater.inflate(R.layout.fragment_start, container, false)
+        _binding = FragmentStartBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val nickname: EditText = view.findViewById(R.id.ed_nickname)
-        val showStat: Button = view.findViewById(R.id.button_stats)
-
-        showStat.setOnClickListener {
-            val text: String = nickname.text.toString()
-            navigate(StatsFragment.newInstance(text))
+        binding.buttonStats.setOnClickListener {
+            navigate(StatsFragment.newInstance(binding.edNickname.text.toString()))
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 

@@ -6,6 +6,12 @@ plugins {
 }
 
 android {
+
+
+    viewBinding {
+        enabled = true
+    }
+
     namespace 'com.example.faceit'
     compileSdk 34
 

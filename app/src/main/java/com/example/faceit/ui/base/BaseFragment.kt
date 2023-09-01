@@ -8,6 +8,7 @@ import com.example.faceit.R
 
 abstract class BaseFragment: Fragment() {
 
+
     private var fm: FragmentManager? = null
 
         override fun onCreate(savedInstanceState: Bundle?){
@@ -19,5 +20,7 @@ abstract class BaseFragment: Fragment() {
         val ft : FragmentTransaction? = fm?.beginTransaction()
         ft?.replace(R.id.container, fragment, fragment.tag )?.addToBackStack(null)?.commit()
     }
+
+
 
 }

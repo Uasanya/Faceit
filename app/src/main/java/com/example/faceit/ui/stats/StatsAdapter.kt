@@ -1,14 +1,12 @@
 package com.example.faceit.ui.stats
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.faceit.R
 import com.example.faceit.data.model.DateConverter
 import com.example.faceit.data.model.MatchEntity
+import com.example.faceit.databinding.ItemGameBinding
 
 class StatsAdapter : RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
 
@@ -20,9 +18,8 @@ class StatsAdapter : RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatsViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_game, parent, false)
-        return StatsViewHolder(view)
+        val binding = ItemGameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return StatsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: StatsViewHolder, position: Int) {
@@ -31,16 +28,8 @@ class StatsAdapter : RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
 
     override fun getItemCount(): Int = matches.size
 
-    inner class StatsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val tvDateHolder: TextView = itemView.findViewById(R.id.tv_time)
-        private val tvStatusHolder: TextView = itemView.findViewById(R.id.tv_status)
-        private val tvScoreHolder: TextView = itemView.findViewById(R.id.tv_score)
-        private val tvMapHolder: TextView = itemView.findViewById(R.id.tv_map)
-        private val tvStatHolder: TextView = itemView.findViewById(R.id.tv_stat)
-        private val tvViewHolder: View = itemView.findViewById(R.id.view_holder)
-
-
+    inner class StatsViewHolder(private val binding: ItemGameBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(match: MatchEntity) {
             val date: Long = match.date
@@ -54,20 +43,20 @@ class StatsAdapter : RecyclerView.Adapter<StatsAdapter.StatsViewHolder>() {
             val time: String = DateConverter.convert(date)
 
 
-            tvDateHolder.text = time
-            tvScoreHolder.text = score
-            tvMapHolder.text = map
-            tvStatHolder.text = statistic
+            binding.tvTime.text = time
+            binding.tvScore.text = score
+            binding.tvMap.text = map
+            binding.tvStat.text = statistic
             if (match.winner) {
-                tvStatusHolder.text = itemView.context.getString(R.string.won)
-                tvStatusHolder.setBackgroundResource(R.color.win)
-                tvScoreHolder.setBackgroundResource(R.color.win)
-                tvViewHolder.setBackgroundResource(R.drawable.border_win)
+                binding.tvStatus.text = itemView.context.getString(R.string.won)
+                binding.tvStatus.setBackgroundResource(R.color.win)
+                binding.tvScore.setBackgroundResource(R.color.win)
+                binding.viewHolder.setBackgroundResource(R.drawable.border_win)
             } else {
-                tvStatusHolder.text = itemView.context.getString(R.string.lost)
-                tvStatusHolder.setBackgroundResource(R.color.lose)
-                tvScoreHolder.setBackgroundResource(R.color.lose)
-                tvViewHolder.setBackgroundResource(R.drawable.border_lose)
+                binding.tvStatus.text = itemView.context.getString(R.string.lost)
+                binding.tvStatus.setBackgroundResource(R.color.lose)
+                binding.tvScore.setBackgroundResource(R.color.lose)
+                binding.viewHolder.setBackgroundResource(R.drawable.border_lose)
             }
         }
     }
