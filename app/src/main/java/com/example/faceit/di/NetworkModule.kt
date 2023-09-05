@@ -1,5 +1,7 @@
 package com.example.faceit.di
 
+import android.os.Build
+import com.example.faceit.BuildConfig
 import com.example.faceit.data.network.MatchApi
 import com.example.faceit.data.network.PlayerApi
 import dagger.Module
@@ -45,7 +47,7 @@ class NetworkModule {
     @Provides
     fun provideHeaderInterceptor() = Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer 52b9c563-63b9-47e8-a365-5640bab53fd9")
+            .addHeader("Authorization", "Bearer " + BuildConfig.TOKEN)
             .build()
         chain.proceed(newRequest)
     }
